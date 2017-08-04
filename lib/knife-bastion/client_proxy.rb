@@ -58,7 +58,20 @@ module KnifeBastion
       ::TCPSocket::socks_server, ::TCPSocket::socks_port = '127.0.0.1', @local_port
       yield
     rescue *NETWORK_ERRORS => e
-      @network_errors_handler.call(e)
+      tries = 3
+      begin
+        ::Chef::Knife.run(['bastion', 'start'], {})
+        if tries > 0
+          retry
+        end
+      rescue
+        tries -= 1
+        if tries > 0
+          retry
+        else
+          @network_errors_handler.call(e)
+        end
+      end
     ensure
       ::TCPSocket::socks_server, ::TCPSocket::socks_port = old_socks_server, old_socks_port
     end
