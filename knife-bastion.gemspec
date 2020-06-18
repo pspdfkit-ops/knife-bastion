@@ -23,9 +23,8 @@ Gem::Specification.new do |spec|
   spec.signing_key   = File.expand_path("~/.ssh/gem-eligible.pem") if $0 =~ /gem\z/
 
   spec.add_runtime_dependency 'chef'
-  spec.add_runtime_dependency 'highline'
   spec.add_runtime_dependency 'socksify'
 
-  spec.add_development_dependency "bundler", "~> 1.12"
-  spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "bundler", "~> 2.1"
+  spec.add_development_dependency "rake", "~> 13.0"
 end
