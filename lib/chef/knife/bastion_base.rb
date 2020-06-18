@@ -37,22 +37,11 @@ class Chef
       end
 
       def print_tunnel_info(header, timeout: nil, pid: nil)
-        ui.info <<-INFO
-#{header}
-  * Bastion host: #{ui.color "#{@bastion_user}@#{@bastion_host}", :bold}
-  *    Chef host: #{ui.color @chef_host, :bold}
-  *   Local port: #{ui.color @local_port.to_s, :bold}
-        INFO
-        if timeout
-          ui.info <<-INFO
-  *      Timeout: #{ui.color timeout.to_s, :bold} seconds
-          INFO
-        end
-        if pid
-          ui.info <<-INFO
-  *    Proxy PID: #{ui.color pid.to_s, :bold}
-          INFO
-        end
+        ui.info "  * Bastion host: #{@bastion_user}@#{@bastion_host}"
+        ui.info "  * Chef host: #{@chef_host}"
+        ui.info "  * Local port: #{@local_port.to_s}"
+        ui.info "  * Timeout: #{timeout.to_s} seconds" if timeout
+        ui.info "  * Proxy PID: #{pid.to_s}" if pid
       end
 
       def run
